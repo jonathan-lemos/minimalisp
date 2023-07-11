@@ -9,10 +9,10 @@ version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/minimalisp#readme>
 homepage:       https://github.com/githubuser/minimalisp#readme
 bug-reports:    https://github.com/githubuser/minimalisp/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2023 Author name here
-license:        BSD3
+author:         Jonathan Lemos
+maintainer:     jonathanlemos@protonmail.com
+copyright:      2023 Jonathan Lemos
+license:        MIT
 license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
@@ -26,13 +26,24 @@ source-repository head
 library
   exposed-modules:
       Lib
+      Minimalisp.Control.Parser
+      Minimalisp.Control.Terminal
+      Minimalisp.Data.ParseError
   other-modules:
       Paths_minimalisp
   hs-source-dirs:
       src
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  default-extensions:
+      InstanceSigs
+      TupleSections
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists
   build-depends:
-      base >=4.7 && <5
+      ansi-terminal
+    , base >=4.7 && <5
+    , containers
+    , free
+    , numbers
+    , terminal-size
   default-language: Haskell2010
 
 executable minimalisp-exe
@@ -41,10 +52,18 @@ executable minimalisp-exe
       Paths_minimalisp
   hs-source-dirs:
       app
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  default-extensions:
+      InstanceSigs
+      TupleSections
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      ansi-terminal
+    , base >=4.7 && <5
+    , containers
+    , free
     , minimalisp
+    , numbers
+    , terminal-size
   default-language: Haskell2010
 
 test-suite minimalisp-test
@@ -54,8 +73,16 @@ test-suite minimalisp-test
       Paths_minimalisp
   hs-source-dirs:
       test
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  default-extensions:
+      InstanceSigs
+      TupleSections
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      ansi-terminal
+    , base >=4.7 && <5
+    , containers
+    , free
     , minimalisp
+    , numbers
+    , terminal-size
   default-language: Haskell2010
