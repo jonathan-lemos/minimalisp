@@ -38,9 +38,11 @@ ghc-options:
 - -Wpartial-fields
 - -Wredundant-constraints
 - -Wno-missing-export-lists
+- -Wno-unused-do-bind
 
 default-extensions:
 - InstanceSigs
+- LambdaCase
 - TupleSections
 
 library:

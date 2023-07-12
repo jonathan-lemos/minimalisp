@@ -27,17 +27,22 @@ library
   exposed-modules:
       Lib
       Minimalisp.Control.Parser
-      Minimalisp.Control.Parser.AST.SExpression
+      Minimalisp.Control.Parser.AST.Noun
       Minimalisp.Control.Parser.Combinator.Conditional
       Minimalisp.Control.Parser.Combinator.MapErrorReasonFromCurrentInput
       Minimalisp.Control.Parser.Combinator.WithErrorReason
+      Minimalisp.Control.Parser.ErrorHandling.FailureFromInput
       Minimalisp.Control.Parser.Text.Char
+      Minimalisp.Control.Parser.Text.CharAny
       Minimalisp.Control.Parser.Text.CharEq
+      Minimalisp.Control.Parser.Text.FoldChars
+      Minimalisp.Control.Parser.Text.StringAny
       Minimalisp.Control.Parser.Text.StringEq
       Minimalisp.Control.Parser.Text.StringWhile
+      Minimalisp.Control.Parser.Text.Utils
+      Minimalisp.Control.Parser.Text.Whitespace
       Minimalisp.Control.Terminal
       Minimalisp.Data.AST.ExpressionKeyword
-      Minimalisp.Data.AST.NonExpressionKeyword
       Minimalisp.Data.AST.Noun
       Minimalisp.Data.AST.SExpression
       Minimalisp.Data.AST.TopLevelExpression
@@ -50,8 +55,9 @@ library
       src
   default-extensions:
       InstanceSigs
+      LambdaCase
       TupleSections
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -Wno-unused-do-bind
   build-depends:
       ansi-terminal
     , base >=4.7 && <5
@@ -69,8 +75,9 @@ executable minimalisp-exe
       app
   default-extensions:
       InstanceSigs
+      LambdaCase
       TupleSections
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -Wno-unused-do-bind -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       ansi-terminal
     , base >=4.7 && <5
@@ -90,8 +97,9 @@ test-suite minimalisp-test
       test
   default-extensions:
       InstanceSigs
+      LambdaCase
       TupleSections
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -Wno-unused-do-bind -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       ansi-terminal
     , base >=4.7 && <5

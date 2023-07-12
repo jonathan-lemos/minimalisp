@@ -1,4 +1,4 @@
-module Minimalisp.Data.AST.Value where
+module Minimalisp.Data.Interpreter.Value where
 
 import Minimalisp.Data.AST.SExpression
   
