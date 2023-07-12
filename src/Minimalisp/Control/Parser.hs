@@ -1,4 +1,4 @@
-module Minimalisp.Control.Parser(Parser(..), ParseFunction) where
+module Minimalisp.Control.Parser where
 
 import Control.Applicative
 import Minimalisp.Data.ParseError
@@ -9,15 +9,15 @@ newtype Parser a = Parser
   { parse :: ParseFunction a
   }
 
-_mapParse :: (ParseFunction a -> ParseFunction b) -> Parser a -> Parser b
-_mapParse f (Parser a) = Parser (f a)
+mapParse :: (ParseFunction a -> ParseFunction b) -> Parser a -> Parser b
+mapParse f (Parser a) = Parser (f a)
 
 defaultErrMsg :: String
-defaultErrMsg = "Syntax Error"
+defaultErrMsg = "Syntax Error. This string should not appear."
 
 instance Functor Parser where
   fmap :: (a -> b) -> Parser a -> Parser b
-  fmap f = _mapParse ((fmap . fmap) f .)
+  fmap f = mapParse ((fmap . fmap) f .)
 
 instance Applicative Parser where
   pure :: a -> Parser a

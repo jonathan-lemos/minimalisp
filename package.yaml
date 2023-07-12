@@ -1,6 +1,6 @@
 name:                minimalisp
-version:             0.1.0.0
-github:              "githubuser/minimalisp"
+version:             0.0.1
+github:              "jonathan-lemos/minimalisp"
 license:             MIT
 author:              "Jonathan Lemos"
 maintainer:          "jonathanlemos@protonmail.com"

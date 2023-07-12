@@ -8,8 +8,9 @@ data ParseError = ParseError
   }
   deriving (Show, Eq)
 
-setCurrentInput :: String -> ParseError -> ParseError
-setCurrentInput s pe = pe { currentInput = s }
+newReasonFromCurrentInput :: (String -> String) -> ParseError -> ParseError
+newReasonFromCurrentInput f pe = pe { reason = f $ currentInput pe }
 
 setReason :: String -> ParseError -> ParseError
-setReason s pe = pe { reason = s }
+setReason = newReasonFromCurrentInput . const
+

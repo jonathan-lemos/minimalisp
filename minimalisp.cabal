@@ -5,10 +5,10 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 
 name:           minimalisp
-version:        0.1.0.0
+version:        0.0.1
 description:    Please see the README on GitHub at <https://github.com/githubuser/minimalisp#readme>
-homepage:       https://github.com/githubuser/minimalisp#readme
-bug-reports:    https://github.com/githubuser/minimalisp/issues
+homepage:       https://github.com/jonathan-lemos/minimalisp#readme
+bug-reports:    https://github.com/jonathan-lemos/minimalisp/issues
 author:         Jonathan Lemos
 maintainer:     jonathanlemos@protonmail.com
 copyright:      2023 Jonathan Lemos
@@ -21,13 +21,28 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/minimalisp
+  location: https://github.com/jonathan-lemos/minimalisp
 
 library
   exposed-modules:
       Lib
       Minimalisp.Control.Parser
+      Minimalisp.Control.Parser.AST.SExpression
+      Minimalisp.Control.Parser.Combinator.Conditional
+      Minimalisp.Control.Parser.Combinator.MapErrorReasonFromCurrentInput
+      Minimalisp.Control.Parser.Combinator.WithErrorReason
+      Minimalisp.Control.Parser.Text.Char
+      Minimalisp.Control.Parser.Text.CharEq
+      Minimalisp.Control.Parser.Text.StringEq
+      Minimalisp.Control.Parser.Text.StringWhile
       Minimalisp.Control.Terminal
+      Minimalisp.Data.AST.ExpressionKeyword
+      Minimalisp.Data.AST.NonExpressionKeyword
+      Minimalisp.Data.AST.Noun
+      Minimalisp.Data.AST.SExpression
+      Minimalisp.Data.AST.TopLevelExpression
+      Minimalisp.Data.AST.Verb
+      Minimalisp.Data.Interpreter.Value
       Minimalisp.Data.ParseError
   other-modules:
       Paths_minimalisp
