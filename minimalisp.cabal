@@ -27,9 +27,15 @@ library
   exposed-modules:
       Lib
       Minimalisp.Control.Parser
-      Minimalisp.Control.Parser.AST.Noun
+      Minimalisp.Control.Parser.AST.ExpressionKeyword
+      Minimalisp.Control.Parser.AST.IdentifierString
+      Minimalisp.Control.Parser.AST.SExpression
+      Minimalisp.Control.Parser.AST.TopLevelExpression
       Minimalisp.Control.Parser.Combinator.Conditional
+      Minimalisp.Control.Parser.Combinator.IgnoreWhitespace
+      Minimalisp.Control.Parser.Combinator.Lookahead
       Minimalisp.Control.Parser.Combinator.MapErrorReasonFromCurrentInput
+      Minimalisp.Control.Parser.Combinator.Parenthesize
       Minimalisp.Control.Parser.Combinator.WithErrorReason
       Minimalisp.Control.Parser.ErrorHandling.FailureFromInput
       Minimalisp.Control.Parser.Text.Char
@@ -43,10 +49,8 @@ library
       Minimalisp.Control.Parser.Text.Whitespace
       Minimalisp.Control.Terminal
       Minimalisp.Data.AST.ExpressionKeyword
-      Minimalisp.Data.AST.Noun
       Minimalisp.Data.AST.SExpression
       Minimalisp.Data.AST.TopLevelExpression
-      Minimalisp.Data.AST.Verb
       Minimalisp.Data.Interpreter.Value
       Minimalisp.Data.ParseError
   other-modules:

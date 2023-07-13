@@ -53,4 +53,12 @@ instance Alternative Parser where
   empty = Parser $ Left . ParseError defaultErrMsg
 
   (<|>) :: Parser a -> Parser a -> Parser a
-  a <|> b = Parser $ \s -> parse a s <> parse b s
+  a <|> b = Parser $ \s ->
+    case (parse a s, parse b s) of
+      (Right (s2, v), _) -> Right (s2, v)
+      (_, Right (s2, v)) -> Right (s2, v)
+      (Left pe1, Left pe2) ->
+        case (length . currentInput) pe1 - (length . currentInput) pe2 of
+          x | x < 0 -> Left pe1
+          _ -> Left pe2
+          
