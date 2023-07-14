@@ -6,7 +6,7 @@ cabal-version: 1.12
 
 name:           minimalisp
 version:        0.0.1
-description:    Please see the README on GitHub at <https://github.com/githubuser/minimalisp#readme>
+description:    Please see the README on GitHub at <https://github.com/jonathan-lemos/minimalisp#readme>
 homepage:       https://github.com/jonathan-lemos/minimalisp#readme
 bug-reports:    https://github.com/jonathan-lemos/minimalisp/issues
 author:         Jonathan Lemos
@@ -33,7 +33,6 @@ library
       Minimalisp.Control.Parser.AST.TopLevelExpression
       Minimalisp.Control.Parser.Combinator.Conditional
       Minimalisp.Control.Parser.Combinator.IgnoreWhitespace
-      Minimalisp.Control.Parser.Combinator.Lookahead
       Minimalisp.Control.Parser.Combinator.MapErrorReasonFromCurrentInput
       Minimalisp.Control.Parser.Combinator.Parenthesize
       Minimalisp.Control.Parser.Combinator.WithErrorReason
@@ -60,6 +59,7 @@ library
   default-extensions:
       InstanceSigs
       LambdaCase
+      RankNTypes
       TupleSections
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -Wno-unused-do-bind
   build-depends:
@@ -80,6 +80,7 @@ executable minimalisp-exe
   default-extensions:
       InstanceSigs
       LambdaCase
+      RankNTypes
       TupleSections
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -Wno-unused-do-bind -threaded -rtsopts -with-rtsopts=-N
   build-depends:
@@ -94,21 +95,28 @@ executable minimalisp-exe
 
 test-suite minimalisp-test
   type: exitcode-stdio-1.0
-  main-is: Spec.hs
+  main-is: Main.hs
   other-modules:
+      Harness.Collector
+      Harness.ParserCase
+      Minimalisp.Control.ParserSpec
+      Spec
       Paths_minimalisp
   hs-source-dirs:
       test
   default-extensions:
       InstanceSigs
       LambdaCase
+      RankNTypes
       TupleSections
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wno-missing-export-lists -Wno-unused-do-bind -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      ansi-terminal
+      QuickCheck
+    , ansi-terminal
     , base >=4.7 && <5
     , containers
     , free
+    , hspec
     , minimalisp
     , numbers
     , terminal-size

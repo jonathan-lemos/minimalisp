@@ -1,7 +1,7 @@
 name:                minimalisp
 version:             0.0.1
 github:              "jonathan-lemos/minimalisp"
-license:             MIT
+license:             "MIT"
 author:              "Jonathan Lemos"
 maintainer:          "jonathanlemos@protonmail.com"
 copyright:           "2023 Jonathan Lemos"
@@ -17,7 +17,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/minimalisp#readme>
+description:         Please see the README on GitHub at <https://github.com/jonathan-lemos/minimalisp#readme>
 
 dependencies:
 - base >= 4.7 && < 5
@@ -43,6 +43,7 @@ ghc-options:
 default-extensions:
 - InstanceSigs
 - LambdaCase
+- RankNTypes
 - TupleSections
 
 library:
@@ -61,7 +62,7 @@ executables:
 
 tests:
   minimalisp-test:
-    main:                Spec.hs
+    main:                Main.hs
     source-dirs:         test
     ghc-options:
     - -threaded
@@ -69,3 +70,5 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - minimalisp
+    - hspec
+    - QuickCheck
