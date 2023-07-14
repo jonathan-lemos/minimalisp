@@ -13,23 +13,25 @@ data ParserCaseLine a = ParserCaseLine
     pcRemainder :: String
   }
 
-withRemainder :: ParserCaseLine a -> String -> ParserCaseLine a
-withRemainder pcl remainder = pcl { pcRemainder = remainder }
+withRemainder :: (Show a, Eq a) => ParserCase a b -> String -> ParserCase a b
+withRemainder pc remainder =
+  let modifyPcl pcl = pcl { pcRemainder = remainder }
+  in mutateLast modifyPcl pc
 
 infix 3 `withRemainder`
 
-type ParserCase a b = (Show a, Eq a) => Collector (ParserCaseLine a) b
+type ParserCase a b = Collector (ParserCaseLine a) b
 
-shouldParseTo :: (Show a, Eq a) => String -> a -> ParserCaseLine a
-shouldParseTo input result = ParserCaseLine {pcInput = input, pcExpectation = ShouldEqual result, pcRemainder = ""}
+shouldParseTo :: (Show a, Eq a) => String -> a -> ParserCase a ()
+shouldParseTo input result = liftCollector ParserCaseLine {pcInput = input, pcExpectation = ShouldEqual result, pcRemainder = ""}
 
-shouldParseAndSatisfy :: (Show a, Eq a) => String -> (a -> Bool) -> ParserCaseLine a
-shouldParseAndSatisfy input predicate = ParserCaseLine {pcInput = input, pcExpectation = ShouldSatisfy predicate, pcRemainder = ""}
+shouldParseAndSatisfy :: (Show a, Eq a) => String -> (a -> Bool) -> ParserCase a ()
+shouldParseAndSatisfy input predicate = liftCollector ParserCaseLine {pcInput = input, pcExpectation = ShouldSatisfy predicate, pcRemainder = ""}
 
-shouldFailWithReason :: (Show a, Eq a) => String -> String -> String -> ParserCaseLine a
-shouldFailWithReason input rsn remainder = ParserCaseLine {pcInput = input, pcExpectation = ShouldFail rsn, pcRemainder = remainder}
+shouldFailWithReason :: (Show a, Eq a) => String -> String -> String -> ParserCase a ()
+shouldFailWithReason input rsn remainder = liftCollector ParserCaseLine {pcInput = input, pcExpectation = ShouldFail rsn, pcRemainder = remainder}
 
-andRemainder :: (Show a, Eq a) => (String -> ParserCaseLine a) -> String -> ParserCaseLine a
+andRemainder :: (Show a, Eq a) => (String -> ParserCase a b) -> String -> ParserCase a b
 andRemainder = ($)
 
 infix 3 `andRemainder`

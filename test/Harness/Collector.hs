@@ -26,3 +26,11 @@ liftCollector a = Collector [a] ()
 
 collectedValues :: Collector a b -> [a]
 collectedValues (Collector xs _) = xs
+
+mutateLast :: (a -> a) -> Collector a b -> Collector a b
+mutateLast f (Collector l v) =
+  let newList = \case
+                  [] -> []
+                  [a] -> [f a]
+                  (x : xs) -> x : newList xs
+  in Collector (newList l) v

@@ -99,6 +99,7 @@ test-suite minimalisp-test
   other-modules:
       Harness.Collector
       Harness.ParserCase
+      Harness.VerifyParserEquality
       Minimalisp.Control.ParserSpec
       Spec
       Paths_minimalisp
