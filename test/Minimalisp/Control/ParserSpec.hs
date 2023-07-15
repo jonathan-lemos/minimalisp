@@ -2,6 +2,9 @@
 
 {-# HLINT ignore "Functor law" #-}
 {-# HLINT ignore "Use <$>" #-}
+{-# HLINT ignore "Monad law, left identity" #-}
+{-# HLINT ignore "Monad law, right identity" #-}
+{-# HLINT ignore "Use >=>" #-}
 module Minimalisp.Control.ParserSpec where
 
 import Data.List (singleton)
@@ -11,6 +14,7 @@ import Minimalisp.Control.Parser.Text.CharAny
 import Minimalisp.Control.Parser.Text.StringAny
 import Test.Hspec
 import Data.Char
+import Minimalisp.Control.Parser.Text.Char
 
 spec :: Spec
 spec = parallel $ do
@@ -23,25 +27,15 @@ spec = parallel $ do
         "efg" `shouldFailWithReason` "Expected any of \"abcd\", but got 'e'" `andRemainder` "efg"
         "" `shouldFailWithReason` "Expected any of \"abcd\", but got EOF" `andRemainder` ""
 
-      verifyParserEquality
+      quickCheckParserEquality
         (id <$> ad)
         ad
         "fmap id == id"
-        [ "a",
-          "abc",
-          "efg",
-          ""
-        ]
 
-      verifyParserEquality
+      quickCheckParserEquality
         ((+1) . ord <$> ad)
         ((+1) <$> ord <$> ad)
         "fmap (f . g) == fmap f . fmap g"
-        [ "a",
-          "abc",
-          "efg",
-          ""
-        ]
 
     describe "Applicative" $ do
       parserCase
@@ -65,20 +59,51 @@ spec = parallel $ do
           "efg" `shouldFailWithReason` "Expected any of \"abcd\", but got 'e'" `andRemainder` "efg"
           "" `shouldFailWithReason` "Expected any of \"abcd\", but got EOF" `andRemainder` ""
 
-      verifyParserEquality
+      quickCheckParserEquality
         (pure (+1) <*> pure (4 :: Int))
         (pure ((+1) 4))
         "pure f <*> pure a == pure (f a)"
-        ["a", "abc", ""]
 
-      verifyParserEquality
+      quickCheckParserEquality
         (pure (+1) <*> pure (4 :: Int))
         (pure ($ 4) <*> pure (+1))
         "u <*> pure y == pure ($ y) <*> u"
-        ["a", "abc", ""]
 
-      verifyParserEquality
+      quickCheckParserEquality
         (pure (.) <*> pure show <*> pure (+1) <*> pure (4 :: Int))
         (pure show <*> (pure (+1) <*> pure (4 :: Int)))
         "pure (.) <*> u <*> v <*> w == u <*> (v <*> w)"
-        ["a", "abc", ""]
+
+    describe "Monad" $ do
+      let cord = ord <$> char
+      let add v = (+ v) <$> cord
+      let mult n = (*n) <$> cord
+
+      parserCase
+        (do
+          c <- ad
+          c2 <- ad
+          return [c, c2])
+        ">>= basic functionality"
+        $ do
+          "ad" `shouldParseTo` "ad"
+          "abc" `shouldParseTo` "ab" `withRemainder` "c"
+          "" `shouldFailWithReason` "Expected any of \"abcd\", but got EOF" `andRemainder` ""
+          "a" `shouldFailWithReason` "Expected any of \"abcd\", but got EOF" `andRemainder` ""
+          "aec" `shouldFailWithReason` "Expected any of \"abcd\", but got 'e'" `andRemainder` "ec"
+      
+      quickCheckParserEquality
+        (return 5 >>= add)
+        (add 5)
+        "return a >>= h == h a"
+
+      quickCheckParserEquality
+        (cord >>= return)
+        cord
+        "m >>= return == m"
+
+      quickCheckParserEquality
+        (cord >>= add >>= mult)
+        (cord >>= (\x -> add x >>= mult))
+        "(m >>= g) >>= h == m >>= (\\x -> g x >>= h)"
+
