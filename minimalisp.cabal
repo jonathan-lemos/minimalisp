@@ -99,7 +99,18 @@ test-suite minimalisp-test
   other-modules:
       Harness.Collector
       Harness.ParserCase
+      Harness.QuickCheckParser
       Harness.VerifyParserEquality
+      Minimalisp.Control.Parser.AST.IdentifierStringSpec
+      Minimalisp.Control.Parser.Combinator.ConditionalSpec
+      Minimalisp.Control.Parser.Combinator.IgnoreWhitespaceSpec
+      Minimalisp.Control.Parser.Combinator.MapErrorReasonFromCurrentInputSpec
+      Minimalisp.Control.Parser.Combinator.ParenthesizeSpec
+      Minimalisp.Control.Parser.Combinator.WithErrorReasonSpec
+      Minimalisp.Control.Parser.ErrorHandling.FailureFromInputSpec
+      Minimalisp.Control.Parser.Text.CharAnySpec
+      Minimalisp.Control.Parser.Text.CharEqSpec
+      Minimalisp.Control.Parser.Text.CharSpec
       Minimalisp.Control.ParserSpec
       Spec
       Paths_minimalisp

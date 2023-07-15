@@ -20,7 +20,12 @@ trimToLength len s
 
 diagnosticToken :: String -> String
 diagnosticToken ci =
-  (quote . trimToLength 15)
-    (either (const "EOF") snd
-      (parse (stringWhile (not . isSpace)) ci))
-    
+  case (quote . trimToLength 15)
+    ( either
+        (const "EOF")
+        snd
+        (parse (stringWhile (not . isSpace)) ci)
+    ) of
+    "\"\"" | null ci -> "EOF"
+    "\"\"" -> "whitespace"
+    x -> x

@@ -9,4 +9,4 @@ import Minimalisp.Control.Parser.Combinator.MapErrorReasonFromCurrentInput
 charAny :: String -> Parser Char
 charAny s =
   asum (charEq <$> s)
-    \@/$ (\ci -> "Expected any of " <> show s <> ", but got " <> diagnosticFirstChar ci)
+    \@/$ \ci -> "Expected any of " <> show s <> ", but got " <> diagnosticFirstChar ci <> "."
