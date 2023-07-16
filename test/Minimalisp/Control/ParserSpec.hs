@@ -16,7 +16,7 @@ import Minimalisp.Control.Parser.Text.Char
 import Minimalisp.Control.Parser.Text.CharAny
 import Minimalisp.Control.Parser.Text.StringAny
 import Test.Hspec
-import Harness.QuickCheckParser (quickCheckParser)
+import Harness.QuickCheckParser
 import Minimalisp.Data.ParseError
 import Control.Applicative
 
@@ -53,10 +53,10 @@ spec = do
           "ad" `shouldParseTo` 2
           "bcd" `shouldParseTo` 3
           "aefg" `shouldParseTo` 4
-          "xq" `shouldFailWithReason` "Expected any of [\"a\",\"bc\"], but got \"xq\"" `andRemainder` "xq"
-          "xq bar" `shouldFailWithReason` "Expected any of [\"a\",\"bc\"], but got \"xq\"" `andRemainder` "xq bar"
-          "aq" `shouldFailWithReason` "Expected any of [\"d\",\"efg\"], but got \"q\"" `andRemainder` "q"
-          "aq bar" `shouldFailWithReason` "Expected any of [\"d\",\"efg\"], but got \"q\"" `andRemainder` "q bar"
+          "xq" `shouldFailWithReason` "Expected any of [\"a\",\"bc\"], but got \"xq\"." `andRemainder` "xq"
+          "xq bar" `shouldFailWithReason` "Expected any of [\"a\",\"bc\"], but got \"xq\"." `andRemainder` "xq bar"
+          "aq" `shouldFailWithReason` "Expected any of [\"d\",\"efg\"], but got \"q\"." `andRemainder` "q"
+          "aq bar" `shouldFailWithReason` "Expected any of [\"d\",\"efg\"], but got \"q\"." `andRemainder` "q bar"
 
       parserCase
         (pure singleton <*> ad)
@@ -117,7 +117,7 @@ spec = do
         "(m >>= g) >>= h == m >>= (\\x -> g x >>= h)"
 
     describe "MonadFail" $ do
-      quickCheckParser
+      quickCheckParserValue
         (fail "foo bar" :: Parser Char)
         "fail \"foo bar\""
         (\x -> Left (ParseError { reason = "foo bar", currentInput = x }))
@@ -130,13 +130,13 @@ spec = do
           "ad" `shouldParseTo` "ad"
           "bcd" `shouldParseTo` "bcd"
           "aefg" `shouldParseTo` "aefg"
-          "xq" `shouldFailWithReason` "Expected any of [\"a\",\"bc\"], but got \"xq\"" `andRemainder` "xq"
-          "xq bar" `shouldFailWithReason` "Expected any of [\"a\",\"bc\"], but got \"xq\"" `andRemainder` "xq bar"
-          "aq" `shouldFailWithReason` "Expected any of [\"d\",\"efg\"], but got \"q\"" `andRemainder` "q"
-          "aq bar" `shouldFailWithReason` "Expected any of [\"d\",\"efg\"], but got \"q\"" `andRemainder` "q bar"
+          "xq" `shouldFailWithReason` "Expected any of [\"a\",\"bc\"], but got \"xq\"." `andRemainder` "xq"
+          "xq bar" `shouldFailWithReason` "Expected any of [\"a\",\"bc\"], but got \"xq\"." `andRemainder` "xq bar"
+          "aq" `shouldFailWithReason` "Expected any of [\"d\",\"efg\"], but got \"q\"." `andRemainder` "q"
+          "aq bar" `shouldFailWithReason` "Expected any of [\"d\",\"efg\"], but got \"q\"." `andRemainder` "q bar"
 
     describe "Monoid" $ do
-      quickCheckParser
+      quickCheckParserValue
         (mempty :: Parser String)
         "mempty (String)"
         (Right . (, mempty))
@@ -158,6 +158,6 @@ spec = do
           "bcefq" `shouldParseTo` "bcef" `withRemainder` "q"
           "bcxyq" `shouldParseTo` "bcxy" `withRemainder` "q"
 
-          "bc" `shouldFailWithReason` "Expected any of [\"dmn\",\"ef\"], but got EOF" `andRemainder` ""
-          "bcx" `shouldFailWithReason` "Expected \"y\", but got EOF" `andRemainder` ""
-          "bce" `shouldFailWithReason` "Expected \"f\", but got EOF" `andRemainder` ""
+          "bc" `shouldFailWithReason` "Expected any of [\"dmn\",\"ef\"], but got EOF." `andRemainder` ""
+          "bcx" `shouldFailWithReason` "Expected \"y\", but got EOF." `andRemainder` ""
+          "bce" `shouldFailWithReason` "Expected \"f\", but got EOF." `andRemainder` ""

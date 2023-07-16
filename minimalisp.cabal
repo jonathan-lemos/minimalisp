@@ -32,8 +32,10 @@ library
       Minimalisp.Control.Parser.AST.SExpression
       Minimalisp.Control.Parser.AST.TopLevelExpression
       Minimalisp.Control.Parser.Combinator.Conditional
+      Minimalisp.Control.Parser.Combinator.EitherParse
       Minimalisp.Control.Parser.Combinator.IgnoreWhitespace
       Minimalisp.Control.Parser.Combinator.MapErrorReasonFromCurrentInput
+      Minimalisp.Control.Parser.Combinator.MaybeParse
       Minimalisp.Control.Parser.Combinator.Parenthesize
       Minimalisp.Control.Parser.Combinator.WithErrorReason
       Minimalisp.Control.Parser.ErrorHandling.FailureFromInput
@@ -98,19 +100,28 @@ test-suite minimalisp-test
   main-is: Main.hs
   other-modules:
       Harness.Collector
+      Harness.FunctionCase
       Harness.ParserCase
       Harness.QuickCheckParser
       Harness.VerifyParserEquality
       Minimalisp.Control.Parser.AST.IdentifierStringSpec
       Minimalisp.Control.Parser.Combinator.ConditionalSpec
+      Minimalisp.Control.Parser.Combinator.EitherParseSpec
       Minimalisp.Control.Parser.Combinator.IgnoreWhitespaceSpec
       Minimalisp.Control.Parser.Combinator.MapErrorReasonFromCurrentInputSpec
+      Minimalisp.Control.Parser.Combinator.MaybeParseSpec
       Minimalisp.Control.Parser.Combinator.ParenthesizeSpec
       Minimalisp.Control.Parser.Combinator.WithErrorReasonSpec
       Minimalisp.Control.Parser.ErrorHandling.FailureFromInputSpec
       Minimalisp.Control.Parser.Text.CharAnySpec
       Minimalisp.Control.Parser.Text.CharEqSpec
       Minimalisp.Control.Parser.Text.CharSpec
+      Minimalisp.Control.Parser.Text.FoldCharsSpec
+      Minimalisp.Control.Parser.Text.StringAnySpec
+      Minimalisp.Control.Parser.Text.StringEqSpec
+      Minimalisp.Control.Parser.Text.StringWhileSpec
+      Minimalisp.Control.Parser.Text.UtilsSpec
+      Minimalisp.Control.Parser.Text.WhitespaceSpec
       Minimalisp.Control.ParserSpec
       Spec
       Paths_minimalisp

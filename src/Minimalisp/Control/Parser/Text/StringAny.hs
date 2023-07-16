@@ -13,8 +13,8 @@ errMsg options input ci =
       validOptions = map (drop delta) $ filter (prefixEq input) options
    in case validOptions of
         [] -> "Unexpected " <> diagnosticToken ci
-        [x] -> "Expected " <> quote x <> ", but got " <> diagnosticToken ci
-        x -> "Expected any of " <> show x <> ", but got " <> diagnosticToken ci
+        [x] -> "Expected " <> quote x <> ", but got " <> diagnosticToken ci <> "."
+        x -> "Expected any of " <> show x <> ", but got " <> diagnosticToken ci <> "."
 
 stringAny :: [String] -> Parser String
 stringAny ss = Parser $ \s -> do

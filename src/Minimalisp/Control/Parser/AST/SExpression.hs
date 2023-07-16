@@ -47,10 +47,11 @@ number = do
 
 character :: Parser Noun
 character =
-  let folder revString newChar =
+  let folder revString (Just newChar) =
         case (readMaybe (reverse revString) :: Maybe Char) of
-          Just c -> Right c
-          Nothing -> Left (newChar : revString)
+          Just c -> Right (Right c)
+          Nothing -> Right (Left (newChar : revString))
+      folder _ Nothing = Left "Reached EOF before reading closing \'"
    in Character <$> foldChars folder "" \@/ "Expected a character literal."
 
 boolean :: Parser Noun
