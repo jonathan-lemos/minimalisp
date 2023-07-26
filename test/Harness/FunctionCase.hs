@@ -25,6 +25,6 @@ fcLineToExpectation (FunctionCaseLine input expectation) f =
       ShouldSatisfy predicate -> f input `shouldSatisfy` predicate
 
 functionCase :: (Show b, Eq b) => (a -> b) -> String -> FunctionCase a b c -> SpecWith ()
-functionCase parser title fc =
-  it title $ mapM_ (($ parser) . fcLineToExpectation) (collectedValues fc)
+functionCase f title fc =
+  it title $ mapM_ (($ f) . fcLineToExpectation) (collectedValues fc)
 

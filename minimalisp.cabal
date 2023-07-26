@@ -37,6 +37,7 @@ library
       Minimalisp.Control.Parser.Combinator.MapErrorReasonFromCurrentInput
       Minimalisp.Control.Parser.Combinator.MaybeParse
       Minimalisp.Control.Parser.Combinator.Parenthesize
+      Minimalisp.Control.Parser.Combinator.ResetErrorPosition
       Minimalisp.Control.Parser.Combinator.WithErrorReason
       Minimalisp.Control.Parser.ErrorHandling.FailureFromInput
       Minimalisp.Control.Parser.Text.Char
@@ -104,7 +105,9 @@ test-suite minimalisp-test
       Harness.ParserCase
       Harness.QuickCheckParser
       Harness.VerifyParserEquality
+      Minimalisp.Control.Parser.AST.ExpressionKeywordSpec
       Minimalisp.Control.Parser.AST.IdentifierStringSpec
+      Minimalisp.Control.Parser.AST.SExpressionSpec
       Minimalisp.Control.Parser.Combinator.ConditionalSpec
       Minimalisp.Control.Parser.Combinator.EitherParseSpec
       Minimalisp.Control.Parser.Combinator.IgnoreWhitespaceSpec
